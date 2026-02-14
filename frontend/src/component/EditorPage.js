@@ -44,16 +44,33 @@ function EditorPage() {
   };
 
   useEffect(() => {
+    console.log("Connecting to backend at:", process.env.REACT_APP_BACKEND_URL);
+    let hasConnected = false; // Track if we've ever connected successfully
+
     const init = async () => {
       socketRef.current = await initSocket();
-      socketRef.current.on("connect_error", (err) => handleErrors(err));
-      socketRef.current.on("connect_failed", (err) => handleErrors(err));
 
+      // Only redirect on initial connection failure, not reconnection attempts
       const handleErrors = (err) => {
-        console.log("Error", err);
-        toast.error("Socket connection failed, Try again later");
-        navigate("/");
+        console.log("Socket error:", err);
+        if (!hasConnected) {
+          // Only show error and redirect if we never connected initially
+          toast.error("Socket connection failed, Try again later");
+          navigate("/");
+        } else {
+          // If we were connected before, just log it - socket.io will auto-reconnect
+          console.log("Attempting to reconnect...");
+        }
       };
+
+      socketRef.current.on("connect_error", handleErrors);
+      socketRef.current.on("connect_failed", handleErrors);
+
+      // Track successful connection
+      socketRef.current.on("connect", () => {
+        console.log("Socket connected successfully");
+        hasConnected = true;
+      });
 
       socketRef.current.emit(ACTIONS.JOIN, {
         roomId,
@@ -93,6 +110,9 @@ function EditorPage() {
       socketRef.current?.off(ACTIONS.JOINED);
       socketRef.current?.off(ACTIONS.DISCONNECTED);
       socketRef.current?.off(ACTIONS.SYNC_OUTPUT);
+      socketRef.current?.off("connect");
+      socketRef.current?.off("connect_error");
+      socketRef.current?.off("connect_failed");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

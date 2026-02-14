@@ -6,6 +6,9 @@ export const initSocket = async () => {
         reconnectionAttempts: 'Infinity',
         timeout: 10000,
         transports: ['websocket', 'polling'],
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        autoConnect: true,
     };
     return io(process.env.REACT_APP_BACKEND_URL, options);
 }
