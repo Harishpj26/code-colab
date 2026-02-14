@@ -1,0 +1,269 @@
+/* EditorPage Styles - Parallel Layout */
+.editor-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    overflow: hidden;
+}
+
+/* Header */
+.editor-header {
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    margin: 0.5rem;
+    z-index: 100;
+}
+
+.header-logo {
+    height: 45px;
+    margin-right: 1rem;
+}
+
+.header-left,
+.header-center,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+
+.toolbar-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.toolbar-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toolbar-btn.icon-only {
+    padding: 0.5rem;
+    justify-content: center;
+}
+
+.toolbar-btn.active {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: var(--accent-color);
+    color: var(--accent-light);
+}
+
+.user-avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 0.9rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Main Layout */
+.editor-main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    gap: 0;
+    /* Gutter handles spacing */
+}
+
+/* Sidebar */
+.editor-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow: hidden;
+    /* width is controlled by Split */
+}
+
+/* Gutter Styles for React Split */
+.gutter {
+    background-color: rgba(255, 255, 255, 0.05);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transition: background-color 0.2s;
+    z-index: 10;
+}
+
+.gutter:hover {
+    background-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+.gutter.gutter-horizontal {
+    cursor: col-resize;
+    margin: 0 4px;
+    border-radius: 4px;
+}
+
+.gutter.gutter-vertical {
+    cursor: row-resize;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+/* Workspace */
+.editor-workspace {
+    /* flex: 1;  -- Adjusted by Split */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.workspace-toolbar {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toolbar-left-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.language-select {
+    min-width: 150px;
+    padding: 0.5rem;
+}
+
+/* Overlay Panels Position */
+.overlay-panel {
+    position: absolute;
+    top: 130px;
+    /* Below workspace toolbar */
+    z-index: 200;
+}
+
+.theme-overlay {
+    left: 160px;
+    transform: none;
+}
+
+.search-overlay {
+    left: 260px;
+    right: auto;
+}
+
+.snippets-overlay {
+    left: 360px;
+    right: auto;
+}
+
+/* Split View */
+.split-view {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    /* Gutter handles spacing */
+    min-height: 0;
+}
+
+.editor-pane {
+    /* flex: 6; Removed - Split controlled */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    /* CodeMirror needs no padding */
+}
+
+.terminal-pane {
+    /* flex: 4; Removed - Split controlled */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+}
+
+.terminal-header {
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terminal-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
+}
+
+.terminal-content {
+    flex: 1;
+    padding: 1rem;
+    background: #1e1e1e;
+    /* Dark terminal background */
+    overflow-y: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #d4d4d4;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.members-title { 
+    color:white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .header-info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Force stacking on mobile/tablet */
+    .editor-main-layout {
+        flex-direction: column !important;
+    }
+
+    .editor-sidebar {
+        width: 100% !important;
+        height: 150px !important;
+        /* Fixed height for sidebar on mobile */
+        flex: none !important;
+    }
+
+    .split-view {
+        flex-direction: column !important;
+    }
+
+    .editor-workspace {
+        width: 100% !important;
+        flex: 1 !important;
+    }
+
+    .editor-pane,
+    .terminal-pane {
+        width: 100% !important;
+        flex: 1 !important;
+    }
+
+    /* Hide gutters on mobile as we force layout */
+    .gutter {
+        display: none !important;
+    }
+}

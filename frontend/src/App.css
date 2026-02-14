@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+}
+
+/* Remove default App.css styles - using design system from index.css */
+
+/* Google Docs-style Collaborative Cursors */
+.remote-caret {
+  position: absolute;
+  border-left: 2px solid;
+  height: 20px;
+  /* Approximate line height */
+  margin-top: -20px;
+  /* Pull it up to sit on the line properly */
+  z-index: 10;
+  pointer-events: none;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.remote-caret-label {
+  position: absolute;
+  top: -22px;
+  left: -2px;
+  padding: 2px 6px;
+  font-size: 10px;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-weight: bold;
+  opacity: 1;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure CodeMirror allows visible overflow for labels if needed, though they are absolute */
+.CodeMirror-lines {
+  overflow: visible;
+}
