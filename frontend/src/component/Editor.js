@@ -87,6 +87,7 @@ function Editor({ socketRef, roomId, onCodeChange, editorRef, clients, username 
     return () => {
       socket?.off(ACTIONS.CODE_CHANGE);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketRef.current]);
 
   // Cursor Tracking Logic
@@ -153,6 +154,7 @@ function Editor({ socketRef, roomId, onCodeChange, editorRef, clients, username 
       socket.off(ACTIONS.CURSOR_MOVE);
       socket.off(ACTIONS.DISCONNECTED, handleUserLeft);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketRef.current, clients, roomId, username]);
 
   return (

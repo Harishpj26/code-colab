@@ -6,7 +6,7 @@ import { ACTIONS } from "../Actions";
 import { useNavigate, useLocation, Navigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import ThemeSwitcher from "./ThemeSwitcher";
 import SearchPanel from "./SearchPanel";
 import SnippetsPanel from "./SnippetsPanel";
@@ -94,6 +94,7 @@ function EditorPage() {
       socketRef.current?.off(ACTIONS.DISCONNECTED);
       socketRef.current?.off(ACTIONS.SYNC_OUTPUT);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!Location.state) {
